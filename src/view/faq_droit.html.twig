@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} | Faq Droit {% endblock %}
+
+{% block content %}
+    <div class="container">            
+        <p id="index-title">F.A.Q</p>      
+        <div class="row">
+            <p>
+                {% for f in listeF %}
+                    {{ f.titleFaq }}
+                    {{ f.answerFaq }}
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Ajout d'une catégorie {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title">Ajout d'une catégorie</p> 
+
+
+        <div id="index-content"> 
+
+
+            {% if form.valide is defined %} 
+                {% if form.valide == true %}
+                    <div style="margin: 0 auto;  text-align: center;">
+                        <h1 >Ajout réussi</h1>
+                        <a href="index.php?page=categoryadd">Ajouter une nouvelle catégorie</a><br>
+                        <a href="index.php?page=category">Retourner à la liste des catégories</a>
+                    </div>
+                {% else %} 
+                    <h1 class="h3 mb-3 font-weight-normal">{{ form.valide.message }}</h1> 
+                {% endif %}     
+            {% else %}      
+
+                <div class="panel-body">
+                    <form  class="form-signin" action="index.php?page=categoryadd" method="post" enctype="application/x-www-form-urlencoded">
+
+                        <label for="inputLabelCategory" class="sr-only">Libellé:</label>
+                        <input type="text" id="inputLabelCategory" name="inputLabelCategory" class="form-control" placeholder="Saisir le libellé" required autofocus>  
+                        
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="btAdd">Ajouter la catégorie</button>
+                    </form>
+                </div>    
+            </div>
+        </div>
+    {% endif %}
+{% endblock %} 

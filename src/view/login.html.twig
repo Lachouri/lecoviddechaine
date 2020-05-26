@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Connexion{% endblock %}
+
+
+{% block content %} 
+
+    {% if form.valide is defined %} 
+        {% if form.valide != true %}
+            <div style="margin-top: 10%;" class="container">
+                <div style="text-align: center;" id="index-content"> 
+                    <h3  role="alert">{{ form.message }}</h3> 
+                    <p  class="h3 mb-3 font-weight-normal"><a href="index.php?page=login">Retourner sur la page de connexion</a></p>
+                </div>
+            </div>
+
+        {% endif %}     
+
+    {% else %} 
+        
+        <div id="login" >
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+                            <form class="form-signin" action="index.php?page=login" method="post" enctype="application/x-www-form-urlencoded" id="signin">
+                                <h3 class="text-center" style="margin-top:20px;">Connexion</h3>
+                                <h1 class="h3 mb-3 font-weight-normal"></h1>
+
+                                <div class="form-group">
+                                    <label for="nicknameUser" >Pseudonyme:</label>
+                                    <input class="form-control" form="signin" type="text" id="nicknameUser" name="nicknameUser" placeholder="Pseudonyme..." required autofocus>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="passwordUser1">Mot de passe:</label>
+                                    <input class="form-control" form="signin" type="password" id="passwordUser" name="passwordUser" placeholder="Mot de passe" autocomplete="current-password" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <button form="signin" type="submit" name="btLogin" class="btn btn-info btn-md">Connexion</button>   
+                                </div>
+
+                                <div id="register-link" class="text-right">
+                                    <a href="index.php?page=signin">Pas encore inscrit ?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}     
+
+{% endblock %}

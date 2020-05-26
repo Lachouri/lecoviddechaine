@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} | Faq Droit {% endblock %}
+
+{% block content %}
+    <div class="container" style="padding-bottom:120px;">            
+        <p id="index-title">F.A.Q</p>   
+         {% for c in listeC %}   
+        <h2 id="{{ c.labelCategory }}">{{ c.labelCategory}}</h2>
+        <hr>
+        {% for fd in listeFD %}
+             {% if c.labelCategory == fd.labelCategory %}
+                 <div class="row">
+
+                <section class="faq-section">
+                     {% if session.idRoleUser == 2 %}
+                    <span style="  margin-right: 20px; color: black;"> <a a class="title" href="index.php?page=faq_list_disabled&activateFaq={{fd.idFaq}}&idCategory={{ c.idCategory }}"><i class="far fa-square"></i></a></span>
+                    <span style="   color: black;"><a class="title" href="index.php?page=faqmodify&idFaq={{fd.idFaq}}"><i class="fas fa-edit"></i></a></span>
+                        {% endif %}
+                    <input type="checkbox" id="{{"q"~fd.idFaq}}">
+                    <label for="{{"q"~fd.idFaq}}"> {{ fd.titleFaq }}</label>
+                    <p>  {{ fd.answerFaq }}</p>
+                </section>
+                 
+
+            </div>
+        {% endif %}
+
+        {% endfor %}
+    {% endfor %}
+       
+    </div>
+{% endblock %}

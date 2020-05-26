@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Ajout d'un article {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title">Ajout d'un article</p> 
+
+
+        <div id="index-content"> 
+
+
+            {% if form.valide is defined %} 
+                {% if form.valide == true %}
+                    <div style="margin: 0 auto;  text-align: center;">
+                        <h1 >Ajout réussi</h1>
+                        <a href="index.php?page=articleadd">Ajouter un nouvel article</a><br>
+                        <a href="index.php?page=article_list">Retourner à la liste des articles</a>
+                    </div>
+                {% else %} 
+                    <h1 class="h3 mb-3 font-weight-normal">{{ form.valide.message }}</h1> 
+                {% endif %}     
+            {% else %}      
+
+                <div class="panel-body">
+                    <form  onsubmit="return confirm('Do you really want to submit the form?');" class="form-signin" action="index.php?page=articleadd" method="post" enctype="multipart/form-data">
+
+                        <label for="inputTitleArticle" class="sr-only">Titre:</label>
+                        <input type="text" id="inputTitleArticle" name="inputTitleArticle" class="form-control" placeholder="Saisir le titre" required autofocus>
+
+                        <label for="inputHeadlineArticle" class="sr-only">Accroche:</label>
+                        <input type="text" id="inputHeadlineArticle" name="inputHeadlineArticle" class="form-control" placeholder="Saisir l'accroche" required >
+
+                        <label for="inputContentArticle" class="sr-only">Contenu:</label>
+                        <textarea id="inputContentArticle" name="inputContentArticle" rows="10" class="form-control" placeholder="Saisir le contenu" required></textarea>
+                        <label for="inputSourceArticle" class="sr-only">Source:</label>
+                        <input type="text" id="inputSourceArticle" name="inputSourceArticle" class="form-control" placeholder="Saisir la source" required >
+
+                        <label for="imageArticle" class="sr-only">Image:</label>
+                        <input type="file" id="imageArticle" name="imageArticle" class="form-control">
+
+                        <select name="inputIdCategory" class="form-control">
+                            <option value="null">N/A</option> 
+                            {% for c in listeC %}
+                                <option value="{{ c.idCategory }}">{{c.labelCategory}}</option> 
+                            {% endfor%}    
+                        </select>    
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="btAdd">Ajouter l'article</button>
+                    </form>
+                </div>    
+            </div>
+        </div>
+    {% endif %}
+{% endblock %} 

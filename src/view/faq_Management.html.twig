@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} | Faq Management {% endblock %}
+
+{% block content %}
+    <div class="container">            
+        <p id="index-title">F.A.Q - Management</p>      
+
+
+       {% for f in listeF %}
+            <div class="row">
+
+                <section class="faq-section">
+                      {% if session.idRoleUser == 2 %}
+                    <span style="  margin-right: 20px; color: black;"> <a a class="title" href="index.php?page=faq_Management&deleteFaq={{f.idFaq}}"><i class="far fa-check-square"></i></a></span>
+                    <span style="   color: black;"><a class="title" href="index.php?page=faqmodify&idFaq={{f.idFaq}}"><i class="fas fa-edit"></i></a></span>
+                        {% endif %}
+                    <input type="checkbox" id="{{"q"~f.idFaq}}">
+                    <label for="{{"q"~f.idFaq}}"> {{ f.titleFaq |striptags('<b>,<u>,<i>,<br>,<center>,<h2>,<h3>')|raw}}</label>
+                    <p>  {{ f.answerFaq |striptags('<b>,<u>,<i>,<br>,<center>,<h2>,<h3>')|raw}}</p>
+                </section>
+            </div>
+
+        {% endfor %}
+
+    </div>
+{% endblock %}

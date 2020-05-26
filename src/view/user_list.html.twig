@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Articles {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title"> Tous les utilisateurs <br>
+        </p> 
+
+        <div id="index-content"> 
+
+
+
+            <div class="media"> 
+                <div class="media-body" style="overflow-x:auto;" > 
+                    {% if form.valide is defined %} 
+
+                        {% if fom.valide == false %}    
+                            <h2>{{ form.message }}</h2>
+                        {% endif %} 
+                    {% endif %} 
+
+                    <table class="table" style="border: 0px solid;">
+                        <tr>
+                            <th>Pseudonyme</th> 
+                            <th>Rôle</th>
+                            <th style=" text-align: center;">Désactiver</th>
+                        </tr>                          {% for u in listeU %}
+                        {%  if u.idRole != 2 %}
+
+                            <tr>
+                                <td>{{u.nicknameUser}}</td>
+                                <td>{{u.labelRole}}</td>
+
+                                {% if session.idRoleUser == 2 %}
+                                    <td style=" text-align: center;"><span style=" text-align: center; color: black;"> <a style="text-align: center;" class="title" href="index.php?page=user_list&idUser={{u.idUser}}"><i  class="far fa-check-square"></i></a></span></td>
+
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+
+                        {% endfor %}
+                            <tr>
+                                <th>Pseudonyme</th> 
+                                <th>Rôle</th>
+                                <th style=" text-align: center;">Désactiver</th>
+                            </tr>    
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        {% endblock %}

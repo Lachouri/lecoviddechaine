@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Catégories{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title">Catégories</p>
+        {% if session.idRoleUser == 2 %}
+            <a class="title" style="font-size: 20px;" href="index.php?page=faqadd">Ajouter une Faq</a> |
+            <a class="title" style="font-size: 20px;" href="index.php?page=categoryadd">Ajouter une catégorie</a>
+
+        {% endif %}
+
+        <div id="index-content">
+          {% if session.idRoleUser == 2 %}  <p>Catégories activées</p>  {% endif %}
+            {% for c in listeC %}                   
+
+                {% if session.idRoleUser == 2 %}
+                    <span style=" float: right;   color: black;"> <a a class="title" href="index.php?page=category&deleteCategory={{c.idCategory}}"><i class="far fa-check-square"></i></a></span>
+                    <span style=" float: right; margin-right: 20px;  color: black;"><a class="title" href="index.php?page=categorymodify&idCategory={{c.idCategory}}"><i class="fas fa-edit"></i></a></span>
+                        {% endif %}
+                <p><a href="index.php?page=categoryarticle&idCategory={{c.idCategory}}"> {{ c.labelCategory }}</a></p>
+
+
+            {% endfor %}
+        </div>
+        {% if session.idRoleUser == 2 %}
+            <div id="index-content">    
+                <p>Catégories désactivées</p>
+
+                {% for dc in listeDisabledC %}
+
+                    <span style=" float: right;   color: black;"> <a a class="title" href="index.php?page=category&activateCategory={{dc.idCategory}}"><i class="far fa-square"></i></a></span>
+                    <span style=" float: right; margin-right: 20px;  color: black;"><a class="title" href="index.php?page=categorymodify&idCategory={{dc.idCategory}}"><i class="fas fa-edit"></i></a></span>
+
+                    <p><a href="index.php?page=categoryarticle&idCategory={{dc.idCategory}}"> {{ dc.labelCategory }}</a></p>
+
+
+
+
+                {% endfor %}                </div>
+
+        {% endif %}
+
+    </div>
+
+    <style>
+
+    </style>
+{% endblock %}

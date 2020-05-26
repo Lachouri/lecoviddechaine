@@ -1,0 +1,255 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} | Accueil {% endblock %}
+
+
+{% block content %}
+    <div class="container">            
+
+
+
+        <p id="index-title">Le Coronavirus (Covid-19)</p>
+        <div id="index-content">
+            <span style=" float: left;  margin-right: 10px; color: black;">Données rafraîchies le</span><span style="  float: left;  margin-right: 10px;   color: black;" id="date"></span><span style="  float: left;  margin-right: 10px;   color: black;" id="date">à</span><span style=" float: left;  color: black;" id="hour"></span>  
+            <br>            <br>
+
+
+            <div id="index-content2" > 
+                <table   class="inlineTable"  >
+                    <tr>
+                        <th>Le monde</th>
+                    </tr>
+                    <tr>
+                        <td  id="globalConfirmed"></td>
+                    </tr>
+                    <tr>
+                        <td style="color: red" id="globalDeaths"></td>
+                    </tr>
+                    <tr>
+                        <td style="color: green" id="globalRecovered"></td>
+                    </tr>
+                    <tr>
+                        <td id="nb"></td>
+
+                    </tr>
+                </table>
+
+                <table class="inlineTable">
+                    <tr>
+                        <th  id="countryAPI"></th>
+                    </tr>
+                    <tr>
+                        <td  id="totalConfirmed" ></td>
+                    <tr>
+                    <tr>
+                        <td style="color: red"  id="totalDeaths" ></td>
+                    <tr>
+                    <tr>
+                        <td style="color: green" id="totalRecovered"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+
+
+                <table  class="inlineTable">
+                    <tr>
+                        <th>Les 3 pays les plus touchés dans le monde :</th>
+                    </tr>
+                    <tr>
+                        <td   id="firstCountryName" ></td>
+                    </tr>
+                    <tr>
+                        <td  id="secondCountryName" ></td>
+                    </tr>
+                    <tr>
+                        <td id="thirdCountryName"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+
+            </div>
+            <p style="margin-top: 20px;">
+                La maladie à coronavirus 2019 (COVID-19) est une ‎maladie infectieuse due à un coronavirus découvert ‎récemment. <br>
+                La majorité des personnes atteintes de la COVID-19 ‎ne ressentiront que des symptômes bénins ou ‎modérés et guériront sans traitement particulier. ‎<br>
+            <h5 style="color: grey;">Propagation</h5>
+            Le virus qui entraîne la COVID-19 se transmet ‎principalement par des gouttelettes produites ‎lorsqu’une personne infectée tousse, éternue, ou ‎lors d’une expiration. Ces gouttelettes sont trop ‎lourdes pour rester dans l’air et tombent ‎rapidement sur le sol ou sur toute surface proche.‎<br>
+            Vous pouvez être infecté en respirant le virus, si ‎vous êtes à proximité d’une personne malade, ou en ‎touchant une surface contaminée puis vos yeux, ‎votre nez ou votre bouche.‎
+            </p>
+        </div>
+                <div class="row">
+            <div class="col text-right">
+                <a href=index.php?page=article_list><button type="button" class="btn btn-dark">Voir tous les articles</button></a> 
+            </div>
+        </div>
+        <p id="index-title">Articles à la une <br></p>
+        <h2 style="text-transform: capitalize;" ><script>document.write(new Date().toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}));</script></h2>
+        <div id="index-content"> 
+
+            {% for a in listeA %}
+                <div class="media"> 
+                    {% if a.imageArticle is null %}
+                     
+                        {% else %}
+                            <img   class="desktop-display"  src="img/articles/{{ a.imageArticle }}"/>
+                        {% endif %}
+
+                        <div class="media-body">
+                            {% if a.imageArticle is not null %}
+                                <img   class="mobile-display"  src="img/articles/{{ a.imageArticle }}"/>
+                            {% endif %}
+                            <span style=" float: right;   color: black;">{{ a.dateArticle|date('d/m/Y')}} </span><br>
+                            <h5 class="media-heading" style="font-weight: bold"><a class="title" href="index.php?page=article&idArticle={{a.idArticle}}"> {{ a.titleArticle }}</a></h5>
+
+                            
+                            <p class="mb-0">{{ a.headlineArticle |striptags('<b>,<u>,<i>,<p>,<br>')|raw }}</p>
+                        </div>
+                        {% if session.idRoleUser == 2 %}
+                                <span style=" float: right;   color: black;"> <a a class="title" href="index.php?page=article&idArticle={{a.idArticle}}"><i class="fas fa-trash"></i></a></span>
+
+                                <span style=" float: right; margin-right: 20px;  color: black;"><a class="title" href="index.php?page=articlemodify&idArticle={{a.idArticle}}"><i class="fas fa-edit"></i></a></span>
+                                    {% endif %}
+                    </div>
+                    {#    <span style=" float: right;   color: black;"> Posté le  {{ a.dateArticle|date('d-m-Y')}} </span>  #}
+
+                    <br>
+
+                    {# <span style=" float: left; margin-bottom: -20%; color: black;">Source :  {{ a.sourceArticle }} </span> <br>
+                    <span style=" float: left; margin-bottom: -20%; color: black;"> Publié par : {{ a.nicknameUser }} </span> 
+                    <span style=" float: right; margin-bottom: -20%; color: black;">   Categorie : {{ a.labelCategory }} </span> #}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        function formatDataNumber(number) {
+            const arrayNumber = number.toString().split("");
+            let count = 0;
+            let processedNumber = [];
+            for (let i = arrayNumber.length - 1; i >= 0; i--) {
+                if (count === 3) {
+                    processedNumber.unshift(".");
+                    count = 0;
+                }
+                processedNumber.unshift(arrayNumber[i]);
+                count++;
+            }
+            return processedNumber.join("");
+        }
+        
+             function formatDiffNumber(number) {
+            const arrayNumber = number.toString().split("");
+            let count = 0;
+            let processedNumber = [];
+            for (let i = arrayNumber.length - 1; i >= 0; i--) {
+                if (count === 3) {
+                    processedNumber.unshift(".");
+                    count = 0;
+                }
+                processedNumber.unshift(arrayNumber[i]);
+                count++;
+            }       if(processedNumber[0] !== "-"){
+                processedNumber.unshift("+");
+            }
+            return processedNumber.join("");
+        }
+        
+ 
+
+        function getNbAffectedCountries(countries) {
+            const arrayCountry = countries.Countries.filter(aCountry => {
+                return aCountry.TotalConfirmed > 0;
+            });
+            return arrayCountry.length;
+        }
+
+        function getDateRefresh(countries) {
+            const countryObject = countries.Countries[0];
+            const refreshDate = new Date(countryObject.Date);
+            return {
+                country: countryObject.Country,
+                localeDate: refreshDate.toLocaleDateString(),
+                localeHour: `${refreshDate.getHours()}:${refreshDate.getMinutes() < 10 ? '0' : ''}${refreshDate.getMinutes()}`
+            };
+        };
+
+        function getFirstThreeCountries(countries) {
+
+            const everyCountryDescending = countries.Countries;
+            everyCountryDescending.sort(function (a, b) {
+                return b.TotalDeaths - a.TotalDeaths;
+            });
+
+            const firstThreeCountries = everyCountryDescending.slice(0, 3);
+
+            return {
+                firstCountry: firstThreeCountries[0],
+                secondCountry: firstThreeCountries[1],
+                thirdCountry: firstThreeCountries[2]
+
+            };
+
+        }
+        ;
+
+
+        fetch('https://api.covid19api.com/summary')
+                .then(response => response.json())
+                .then(json => {
+                    const  nbAffectedCountries = getNbAffectedCountries(json);
+                    document.getElementById("nb").innerHTML = nbAffectedCountries.toString() + " pays touchés";
+                    const  dateRefresh = getDateRefresh(json);
+                    document.getElementById("date").innerHTML = dateRefresh.localeDate;
+                    document.getElementById("hour").innerHTML = dateRefresh.localeHour;
+
+                    const  firstThreeCountries = getFirstThreeCountries(json);
+                    document.getElementById("firstCountryName").innerHTML = firstThreeCountries.firstCountry.Country + " - " + formatDataNumber(firstThreeCountries.firstCountry.TotalDeaths) + " morts ";
+                    document.getElementById("secondCountryName").innerHTML = firstThreeCountries.secondCountry.Country + " - " + formatDataNumber(firstThreeCountries.secondCountry.TotalDeaths) + " morts ";
+                    document.getElementById("thirdCountryName").innerHTML = firstThreeCountries.thirdCountry.Country + " - " + formatDataNumber(firstThreeCountries.thirdCountry.TotalDeaths) + " morts ";
+
+
+                    const globalObject = json.Global;
+                    document.getElementById("globalConfirmed").innerHTML = formatDataNumber(globalObject.TotalConfirmed) + " cas confirmés";
+                    document.getElementById("globalDeaths").innerHTML = formatDataNumber(globalObject.TotalDeaths) + " décès";
+                    document.getElementById("globalRecovered").innerHTML = formatDataNumber(globalObject.TotalRecovered) + " personnes guéries";
+
+
+
+                }).catch(e => {
+            console.log(e);
+            document.getElementById("index-content2").innerHTML = "Données actuellement indisponibles";
+
+        });
+
+
+
+        fetch('http://ip-api.com/json')
+                .then(response => response.json())
+                .then(json => {
+                    const countryName = json.country;
+                    fetch(`https://api.covid19api.com/total/country/${countryName}`)
+                            .then(response => response.json())
+                            .then(json => {
+                                const todayObject = json[json.length - 1];
+                                const yesterdayObject = json[json.length - 2];
+                                const diffConfirmed = json[json.length - 1].Confirmed - json[json.length - 2].Confirmed;
+                                const diffDeaths = json[json.length - 1].Deaths - json[json.length - 2].Deaths;
+                                const diffRecovered = json[json.length - 1].Recovered - json[json.length - 2].Recovered;
+
+                                document.getElementById("totalConfirmed").innerHTML = formatDataNumber(todayObject.Confirmed) + " cas confirmés  (" + formatDiffNumber(diffConfirmed) + ")";
+                                document.getElementById("countryAPI").innerHTML = countryName;
+                                document.getElementById("totalDeaths").innerHTML = formatDataNumber(todayObject.Deaths) + "   décès  (" + formatDiffNumber(diffDeaths) + ")";
+                                document.getElementById("totalRecovered").innerHTML = formatDataNumber(todayObject.Recovered) + "   personnes guéries  (" + formatDiffNumber(diffRecovered) + ")";
+
+                            }).catch(e => {
+                        console.log(e);
+                    });
+                });
+
+    </script>
+{% endblock %}

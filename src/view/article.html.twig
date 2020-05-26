@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | {{form.article.titleArticle}}  {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title"></p> 
+
+
+        <div id="index-content"> 
+
+            {% if form.article is defined %} 
+
+                <div class="media"> 
+
+                    {% if form.article.imageArticle is null %}
+                    {% else %}
+                        <img style="width: 80%; margin: 0 auto; margin-bottom: 30px;" src="img/articles/{{ form.article.imageArticle }}"/> 
+                    {% endif %}
+                </div>
+                <div class="media-body">
+                    <h3 class="media-heading" style="font-weight: bold">{{ form.article.titleArticle }}</h3>
+                    <p class="text-right" style="font-size: 12px;">{{ form.article.dateArticle|date('d/m/Y')}}</p>
+                    <b><span style="font-weight: bold;">{{ form.article.headlineArticle|striptags('<b>,<u>,<i>,<p>,<br>,<center>,<h1>,<h2>,<h3>')|raw }}</span></b><br><br>
+
+                    {% if session.nicknameUser is defined %}
+                        <span style="font-weight: 400 ">{{ form.article.contentArticle|striptags('<b>,<u>,<i>,<p>,<br>,<center>,<h1>,<h2>,<h3>,<a>')|raw }}</span>
+                    {% else %}
+                        {% if form.article[11] > 0 %}
+                            <span style="font-weight: 400 ">{{ form.article[10]|striptags('<b>,<u>,<i>,<br>,<center>,<h1>,<h2>,<h3>')|raw }}...</span>
+                            <div id="popup" style="  background-color: #f2f2f2;
+                                 border: #000000;
+                                 border-style: solid;
+                                 border-width: 2px ;
+                                 padding : 30px;"> 
+                                <p style='margin: 0 auto; text-align: center;'>Cet article est réservé aux membres. Il vous reste {{ form.article[11] }}% à découvrir.<br>
+                                    Inscrivez-vous c'est gratuit !<br>
+
+                                    Déja membre ? <a href="index.php?page=login">Connectez-vous</a></p></div>
+                        {% else %}<span style="font-weight: 400 ">{{ form.article[3] |striptags('<b>,<u>,<i>,<br>,<center>,<h1>,<h2>,<h3>')|raw}}</span>
+                        {% endif %}
+                    {% endif %}
+
+                    <ul class="list-inline list-unstyled">
+                        <li><span style="font-weight: 100; font-size: 15px;"><a  target="_blank" href="{{ form.article.sourceArticle }}"><u>Source</u></a> | {{ form.article.nicknameUser }}</span></li>
+                    </ul>
+
+                </div>
+
+
+            </div><hr>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

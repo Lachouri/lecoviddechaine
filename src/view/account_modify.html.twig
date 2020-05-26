@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} - Modifier mon compte{% endblock %}
+
+{% block content %}   <div class="container">
+            {% if form.valide is defined %} 
+                {% if form.valide == true %}
+                    <h1 class="alert alert-success">Modification réussie !</h1>
+                    <h1>Veuillez vous reconnecter pour que les changements soient pris en compte.</h1>
+
+                {% else %} 
+                    <h1 class="alert alert-danger">Echec de la modification.</h1> 
+                    <h1 class="alert alert-danger">{{form.message}}</h1>
+                    <ul><h1><a href="index.php?page=account">Retourner sur la page précédente</a></h1></ul>
+
+                {% endif %}    
+            {% else %}
+
+                {% if session.nicknameUser is defined %}
+                    {% if session.nicknameUser != null %}
+                                <p id="index-title"> Modifier mon compte</p>
+
+                                <div id="index-content"> 
+
+
+                        <form action="index.php?page=accountmodify" method="post" enctype="application/x-www-form-urlencoded">
+                            <label for="idUser" class="sr-only">ID :</label>
+                            <input type="hidden" id="idUser" name="idUser" value="{{session.idUser}}"><br>
+
+                            <label for="inputNickname">Pseudonyme :</label>
+                            <input type="text" id="inputNickname" name="inputNickname" class="form-control" placeholder="Pseudonyme" value="{{session.nicknameUser}}" required><br>
+
+                            <label for="inputPassword">Mot de passe :</label>
+                            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required><br>
+
+                            <label for="inputPassword2">Confirmer le mot de passe :</label>
+                            <input type="password" id="inputPassword2" name="inputPassword2" class="form-control" placeholder="Confirmer le mot de passe" required><br>
+
+                            <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModifier">Modifier</button>
+                        </form>
+                </div>
+
+                    {% endif %}
+
+            {% else %}
+                {% if form.valide == false %}
+                    <div id="index-title">
+                        <p>Vous n'êtes pas connecté</p> 
+                        <a class="btn btn-lg btn-primary btn-block" type="submit" href="index.php?page=login">Se connecter</a>
+                    </div>  
+                {% endif %}
+            {% endif %}
+        {% endif %}
+                </div>
+
+
+    {% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} | Mon compte {% endblock %}
+
+{% block content %}
+    <div class="container">            
+
+
+        {% if session.nicknameUser is defined %}
+            <p id="index-title">Mon compte</p>    
+
+            <div id="index-content"> 
+                <table class="table" style="border: 0px solid;">
+                    <tr>
+                        <th>Pseudonyme :</th> 
+                        <td>{{session.nicknameUser}}</td>
+                    </tr>
+                    <tr>
+                        <th>Mot de passe :</th>
+                        <td>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</td>
+                    </tr>
+                </table>
+                {% if session.idRoleUser != 2 %}  
+                    <a style="color: white;"type="submit" href="index.php?page=accountmodify"><button form="signin" class="btn btn-info btn-md">Modifier</button></a>
+
+                    <a style="color: white;" onclick="return confirm('Êtes-vous sûr de vouloir vous désinscrire ?');" type="submit" href="index.php?page=account&idUser={{session.idUser}}"><button form="signin" class="btn btn-info btn-md">Me désinscrire du site</button></a>
+                {% endif %}  
+            {% else %} 
+                <div id="index-title">
+                    <p>Vous n'êtes pas connecté</p> 
+                    <a class="btn btn-lg btn-primary btn-block" type="submit" href="index.php?page=login">Se connecter</a>
+                </div>
+            {% endif %}   
+        </div>
+    </div>
+
+
+{% endblock %}
+

@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Ajout d'une faq {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title">Ajout d'une faq</p> 
+
+
+        <div id="index-content"> 
+
+
+            {% if form.valide is defined %} 
+                {% if form.valide == true %}
+                    <div style="margin: 0 auto;  text-align: center;">
+                        <h1 >Ajout réussi</h1>
+                        <a href="index.php?page=faqadd">Ajouter une nouvelle faq</a><br>
+                        <a href="index.php?page=index">Retourner à l'accueil</a>
+                    </div>
+                {% else %} 
+                    <h1 class="h3 mb-3 font-weight-normal">{{ form.valide.message }}</h1> 
+                {% endif %}     
+            {% else %}      
+
+                <div class="panel-body">
+                    <form  class="form-signin" action="index.php?page=faqadd" method="post" enctype="application/x-www-form-urlencoded">
+
+                        <label for="inputTitleFaq" class="sr-only">Question:</label>
+                        <input type="text" id="inputTitleFaq" name="inputTitleFaq" class="form-control" placeholder="Saisir la question" required autofocus>  
+                        
+                        <label for="inputAnswerFaq" class="sr-only">Réponse:</label>
+                        <input type="text" id="inputAnswerFaq" name="inputAnswerFaq" class="form-control" placeholder="Saisir la réponse" required autofocus>  
+                        
+                         <select name="inputIdCategory" class="form-control">
+                            <option value="null">N/A</option> 
+                            {% for c in listeC %}
+                                <option value="{{ c.idCategory }}">{{ c.idCategory }}{{c.labelCategory}}</option> 
+                            {% endfor%}    
+                        </select> 
+                        
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="btAdd">Ajouter la FAQ</button>
+                    </form>
+                </div>    
+            </div>
+        </div>
+    {% endif %}
+{% endblock %} 

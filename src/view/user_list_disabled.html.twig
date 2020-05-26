@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Articles {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title"> Tous les utilisateurs <br>
+        </p> 
+        <div id="index-content"> 
+            <div class="media"> 
+                <div class="media-body" style="overflow-x:auto;"> 
+
+                    <table class="table" style="border: 0px solid;">
+                        <tr>
+                            <th>Pseudonyme</th> 
+                            <th>Rôle</th>
+                             <th style=" text-align: center;">Activer</th> 
+                        </tr>                          {% for ud in listeUD %}
+ {% if u.idRole != 2 %}
+                        <tr>
+                            <td>{{ud.nicknameUser}}</td>
+                            <td>{{ud.labelRole}}</td>
+
+                            {% if session.idRoleUser == 2 %}
+                                <td><span style="  color: black;"> <a a class="title" href="index.php?page=user_list_disabled&idUser={{ud.idUser}}"><i class="far fa-square"></a></span></td>
+
+                            {% endif %}
+                             {% endif %}
+                        </tr>
+                        {% endfor %}
+                            <tr>
+                                <th>Pseudonyme</th> 
+                                <th>Rôle</th>
+                                <th style=" text-align: center;">Activer</th>
+                            </tr>    
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        {% endblock %}

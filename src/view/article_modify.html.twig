@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} - Modification d'un article {% endblock %}
+
+{% block content %}  <div class="container">
+        <p id="index-title">Modification d'un article</p> 
+
+
+        <div id="index-content"> 
+
+            {% if form.article is defined %} 
+                {% if form.article != null %}   
+
+                    <div class="panel-body">
+                        <form  onsubmit=" return confirm('Acceptez-vous ces modifications ?');" class="form-signin" action="index.php?page=articlemodify" method="post" enctype="multipart/form-data">
+                            <input type="hidden" id="idContact" name="idArticle" value="{{form.article.idArticle}}"/> 
+
+                            <label for="inputTitleArticle" class="sr-only">Titre:</label>
+                            <input type="text" id="inputTitleArticle" name="inputTitleArticle" class="form-control" placeholder="Saisir le titre" value="{{form.article.titleArticle}}" required autofocus>
+
+                            <label for="inputHeadlineArticle" class="sr-only">Nom:</label>
+                            <input type="text" id="inputHeadlineArticle" name="inputHeadlineArticle" class="form-control" placeholder="Saisir l'accroche" value="{{form.article.headlineArticle}}" required >
+
+                            <label for="inputContentArticle" class="sr-only">Rue:</label>
+                            <textarea id="inputContentArticle" name="inputContentArticle" rows="10" class="form-control" placeholder="Saisir le contenu" value="" required>{{form.article.contentArticle}}</textarea>
+
+                            <label for="inputSourceArticle" class="sr-only">Mail:</label>
+                            <input type="text" id="inputSourceArticle" name="inputSourceArticle" class="form-control" placeholder="Saisir la source" value="{{form.article.sourceArticle}}" required >
+
+                            <label for="imageArticle" class="sr-only">Image:</label>
+                            <input type="file" id="imageArticle" name="imageArticle" value="{{form.article.imageArticle}}" class="form-control">
+
+                            <label for="inputIdCategory" class="sr-only">Contact:</label>
+                            <select name="inputIdCategory" class="form-control">
+                                <option value="{{ form.article.idCategory }}">{{form.article.labelCategory}}</option> 
+                                {% for c in listeC %}
+                                    <option value="{{ c.idCategory }}">{{c.labelCategory}}</option> 
+                                {% endfor%}    
+                            </select>    
+
+
+                            <button class="btn btn-lg btn-primary btn-block" type="submit" name="btModify">Modifier</button>
+                        </form>
+                    </div> 
+                {% else %}  
+                    {% if form.valide == true %}
+                        <h1 class="h3 mb-3 font-weight-normal">{{ form.message }} </h1>
+                        <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=article_list" class="violet">Retourner sur la liste des articles</a></h1>
+                        <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=article_list_disabled" class="violet">Retourner sur la liste des articles désactivés</a></h1>
+
+                    {% else %}    
+                        <h1 class="alert alert-info" role="alert">{{ form.message }}</h1> 
+                        <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=article_list" class="violet">Retourner sur la liste des articles</a></h1>
+                        <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=article_list_disabled" class="violet">Retourner sur la liste des articles désactivés</a></h1>
+
+                    {% endif %} 
+                {% endif %} 
+            {% else %} 
+                <h1 class="alert alert-info" role="alert">{{ form.message }}</h1> 
+                <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=article_list" class="violet">Retourner sur la liste des articles</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal"><a href="index.php?page=article_list_disabled" class="violet">Retourner sur la liste des articles désactivés</a></h1>
+
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %} 

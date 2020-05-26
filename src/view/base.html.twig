@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}LCD{% endblock %}</title>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Material Design Bootstrap -->
+        <link rel="stylesheet" href="css/mdb.min.css">
+        <!-- Your custom styles (optional) -->
+        <link rel="stylesheet" href="css/style.css">
+        {% block style %} {% endblock %}
+
+    </head>
+    <body>
+
+        {% block body %}
+            <!-- Navbar -->
+            <header role="banner">
+                <div class="logo-main">
+                    <a  href="index.php?page=index"> <img id="logo-main" src="../web/images/coviddechaine-mobile.png"  class="mobile" alt="Covid déchaîné"></a>
+                    <a  href="index.php?page=index"> <img id="logo-main" src="../web/images/coviddechaine.png"   class="desktop"  alt="Covid déchaîné"></a>
+                    <a  href="index.php?page=index"><img id="logo-main" src="../web/images/coviddechaine-mid.png" class="mid"  alt="Covid déchaîné"></a>
+                </div>
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+
+                    <!-- Collapse button -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
+                            aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Collapsible content -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+
+                        <!-- Accueil -->
+                        <ul class="navbar-nav mr-auto">
+
+                            <li class="nav-item ">
+                                <a class="nav-link text-uppercase" id="navbarDropdownMenuLink2" 
+                                   aria-expanded="false" href="index.php?page=index">Accueil</a>
+
+                            </li>
+                            <!-- Articles -->
+                            <li class="nav-item ">
+                                <a class="nav-link text-uppercase" id="navbarDropdownMenuLink2" 
+                                   aria-expanded="false" href="index.php?page=article_list">Les articles</a>
+
+                            </li>
+                            <!-- Catégories -->
+                            <li class="nav-item dropdown multi-level-dropdown">
+                                <a  id="menu" data-toggle="dropdown" class="nav-link dropdown-toggle text-uppercase">Les Catégories</a>
+                                <ul class="dropdown-menu mt-2 rounded-0 border-0 z-depth-1">
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=categoryarticle&idCategory=1"> Economie</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=categoryarticle&idCategory=2"> Droit</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu ">
+                                        <a href="index.php?page=categoryarticle&idCategory=3"> Management</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=categoryarticle&idCategory=4"> Etudes</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=category">Toutes les catégories</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- FAQ -->
+                            <li class="nav-item dropdown multi-level-dropdown">
+                                <a href="#" id="menu" data-toggle="dropdown" class="nav-link dropdown-toggle text-uppercase">FAQ</a>
+                                <ul class="dropdown-menu mt-2 rounded-0 border-0 z-depth-1">
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=faq_Economie"> Economie</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=faq_Droit"> Droit</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu ">
+                                        <a href="index.php?page=faq_Management"> Management</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=faq_Etude"> Etudes</a>
+                                    </li>
+                                    <li class="dropdown-item dropdown-submenu">
+                                        <a href="index.php?page=faq_list">Toutes les Faq</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Contact -->
+                            <li class="nav-item ">
+                                <a class="nav-link text-uppercase" id="navbarDropdownMenuLink4"
+                                   aria-expanded="false" href="index.php?page=contact">Contact</a>
+                            </li>
+                            <!-- Mentions légales -->
+                            <li class="nav-item ">
+                                <a class="nav-link text-uppercase" id="navbarDropdownMenuLink4"
+                                   aria-expanded="false" href="index.php?page=mentionslegales">Mentions légales</a>
+                            </li>
+                        </ul> 
+
+                        {% if session.nicknameUser is defined %}
+
+                            <ul class="navbar-nav ml-auto"> 
+                                <li class="nav-item text-right">
+                                    {% if session.idRoleUser == 2 %}
+                                        <!-- Administration -->
+                                    <li class="nav-item dropdown multi-level-dropdown">
+                                        <a href="#" id="menu" data-toggle="dropdown" class="nav-link dropdown-toggle text-uppercase">Administration</a>
+                                        <ul class="dropdown-menu mt-2 rounded-0 border-0 z-depth-1">
+                                            <li class="dropdown-item dropdown-submenu">
+                                                <a href="index.php?page=article_list"> Les articles</a>
+                                            </li>
+                                            <li class="dropdown-item dropdown-submenu">
+                                                <a href="index.php?page=article_list_disabled"> Les articles désactivés</a>
+                                            </li>
+                                            <li class="dropdown-item dropdown-submenu">
+                                                <a href="index.php?page=faq_list"> Les Faq</a>
+                                            </li>
+                                            <li class="dropdown-item dropdown-submenu">
+                                                <a href="index.php?page=faq_list_disabled"> Les Faq désactivéés</a>
+                                            </li>
+                                            <li class="dropdown-item dropdown-submenu ">
+                                                <a href="index.php?page=category"> Les catégories</a>
+                                            </li>
+                                            <li class="dropdown-item dropdown-submenu">
+                                                <a href="index.php?page=user_list"> Les utilisateurs</a>
+                                            </li>
+                                            <li class="dropdown-item dropdown-submenu">
+                                                <a href="index.php?page=user_list_disabled"> Les utilisateurs désactivés</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                <li class="nav-item text-right">
+                                    <a class="nav-link" href="index.php?page=account">{{ session.nicknameUser }}</a>
+                                </li>
+
+                                <li class="nav-item text-right">
+                                    <a class="nav-link" href="index.php?page=logout">Se déconnecter</a>
+                                </li>
+                            </ul>
+
+                        {% else %}
+                            <ul class="navbar-nav ml-auto">
+
+                                <li class="nav-item text-right">
+                                    <a class="nav-link" href="index.php?page=login">Se connecter</a>
+                                </li>
+
+                                <li class="nav-item text-right">
+                                    <a class="nav-link"  href="index.php?page=signin">S'inscrire</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+
+
+                        <!-- Links -->
+
+                        <!-- Search form -->
+                        {#  
+                        <form class="form-inline">
+                              <div class="md-form my-0">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                              </div>
+                            </form> #}
+
+                    </div>
+                    <!-- Collapsible content -->
+
+                </nav>
+            </header><!-- header role="banner" -->
+
+            {% block content %}
+
+            {% endblock %}
+            <!-- Footer -->
+            <footer class="page-footer font-small navbar-custom">
+
+                <!-- Copyright -->
+                <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                    <a href="#"> Le Covid Déchaîné</a>
+                </div>
+                <!-- Copyright -->
+
+            </footer>
+            <!-- Footer -->
+        {% endblock %}
+
+        <!-- jQuery -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <!-- Your custom scripts (optional) -->
+        <script type="text/javascript"></script>
+
+    </body>
+</html>

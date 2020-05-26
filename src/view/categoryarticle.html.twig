@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Catégories{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title">Catégorie{% if form.category is defined %}
+            {{ form.category }}- <a href="index.php?page=faq_{{ form.category }}">F.A.Q</a> 
+            {% endif %} </p> 
+
+
+            <div id="index-content"> 
+
+                {% for c in listeArticle %}
+
+                    {% if listeArticle is empty  %}
+
+                        <p style="font-weight: 400 ">oui</p>
+
+
+                    </div>
+
+
+                </div>
+            {% else %}
+                <div class="media"> 
+                        {% if c.imageArticle is null %}
+                        
+                        {% else %}
+                            <img   class="desktop-display"  src="img/articles/{{ c.imageArticle }}"/>
+                        {% endif %}
+                    <div class="media-body">
+                        {% if c.imageArticle is not null %}
+                                <img   class="mobile-display"  src="img/articles/{{ c.imageArticle }}"/>
+                            {% endif %}
+                        <h5 class="media-heading" style="font-weight: bold;"><a class="title" href="index.php?page=article&idArticle={{c.idArticle}}"> {{ c.titleArticle }}</a></h5>
+                        <p class="text-right" style="font-size: 12px;">Posté le  {{ a.dateArticle|date('d-m-Y')}}</p>
+                        <p style="font-weight: 400 ">{{ c.headlineArticle }}</p>
+                        <ul class="list-inline list-unstyled">
+                            <li><span style="font-weight: 100; font-size: 15px;"><a  target="_blank" href="{{ c.sourceArticle }}">Source</a> | {{ c.nicknameUser }}</span></li>
+                        </ul>
+
+                    </div>
+
+
+                </div><hr>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+
+
+</div>
+{% endblock %}

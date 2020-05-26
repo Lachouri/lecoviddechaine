@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }} | Articles {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="index-title"> Tous les articles <br>
+           </p> 
+  {% if session.idRoleUser == 2 %}
+                <a class="title" style="font-size: 20px;" href="index.php?page=articleadd">Ajouter un article</a>
+
+        {% endif %}
+          {% if session.idRoleUser == 2 %}
+
+        {% endif %}
+        <div id="index-content"> 
+
+            {% for a in listeA %}
+
+                <div class="media"> 
+                   
+                       
+                    {% if a.imageArticle is null %}
+                    {% else %}
+                            <img   class="desktop-display"  src="img/articles/{{ a.imageArticle }}"/>
+                        {% endif %}
+                    <div class="media-body"> 
+                        {% if a.imageArticle is not null %}
+                                <img   class="mobile-display"  src="img/articles/{{ a.imageArticle }}"/>
+                            {% endif %}
+                        {% if session.idRoleUser == 2 %}
+                            <span style=" float: right;   color: black;"> <a a class="title" href="index.php?page=article_list&deleteArticle={{a.idArticle}}"><i class="far fa-check-square"></i> </a></span>
+                            <span style=" float: right; margin-right: 20px;  color: black;"><a class="title" href="index.php?page=articlemodify&idArticle={{a.idArticle}}"><i class="fas fa-edit"></i></a></span>
+                                {% endif %}
+
+                        <h5 class="media-heading" style="font-weight: bold"><a class="title" href="index.php?page=article&idArticle={{a.idArticle}}"> {{ a.titleArticle }}</a></h5>
+
+                        <p class="text-right" style="font-size: 12px;">{{ a.dateArticle|date('d/m/Y')}}</p>
+                        <p style="font-weight: 400 ">{{ a.headlineArticle |striptags('<b>,<u>,<i>,<p>,<br>,<center>,<h1>,<h2>,<h3>')|raw}}<br>
+                            <a class="title" href="index.php?page=article&idArticle={{a.idArticle}}"> Voir plus...</a></p>
+                        <ul class="list-inline list-unstyled">
+                            <li><span style="font-weight: 100; font-size: 15px;"><a target="_blank" href="{{ a.sourceArticle }}"><u>Source</u></a> | {{ a.nicknameUser }}</span></li>
+                        </ul>
+
+                    </div>
+
+
+                </div><hr>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

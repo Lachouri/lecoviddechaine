@@ -34,7 +34,7 @@
                                 <img   class="mobile-display"  src="img/articles/{{ c.imageArticle }}"/>
                             {% endif %}
                         <h5 class="media-heading" style="font-weight: bold;"><a class="title" href="index.php?page=article&idArticle={{c.idArticle}}"> {{ c.titleArticle }}</a></h5>
-                        <p class="text-right" style="font-size: 12px;">Posté le  {{ a.dateArticle|date('d-m-Y')}}</p>
+                        <p class="text-right" style="font-size: 12px;">Posté le  {{ c.dateArticle|date('d/m/Y')}}</p>
                         <p style="font-weight: 400 ">{{ c.headlineArticle }}</p>
                         <ul class="list-inline list-unstyled">
                             <li><span style="font-weight: 100; font-size: 15px;"><a  target="_blank" href="{{ c.sourceArticle }}">Source</a> | {{ c.nicknameUser }}</span></li>

@@ -31,7 +31,7 @@ class Category {
                                       INNER JOIN User u ON u.idUser=a.idUser 
                                       WHERE c.idCategory =:idCategory
                                       AND a.activated = 1
-                                      ORDER BY dateArticle");
+                                      ORDER BY dateArticle desc");
 
         $this->update = $db->prepare("UPDATE Category SET labelCategory=:labelCategory
            WHERE idCategory=:idCategory");

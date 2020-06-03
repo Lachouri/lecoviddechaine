@@ -41,7 +41,6 @@ function actionCategoryArticle($twig, $db) {
     if (isset($_GET['idCategory'])) {
         $listeCategories = $category->selectById($_GET['idCategory']);
         $listeArticle = $category->selectCategoryArticle($_GET['idCategory']);
-
         if ($listeCategories != null) {
             $form['category'] = $listeCategories[1];
         } else {
